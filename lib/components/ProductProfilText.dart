@@ -1,0 +1,64 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'constants.dart';
+
+class TextPart extends StatelessWidget {
+  final Size size;
+  final IconData icon;
+
+  final String text;
+  final String text2;
+  final bool variant;
+  const TextPart({
+    super.key,
+    required this.size,
+    required this.icon,
+    required this.text,
+    required this.text2,
+    required this.variant,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Icon(
+                icon,
+                color: kPrimaryColor,
+              ),
+            ),
+            Text(
+              text.tr,
+              maxLines: 3,
+              style: TextStyle(color: kPrimaryColor, fontSize: size.width >= 800 ? size.width * 0.025 : size.width * 0.05, fontFamily: normsProSemiBold),
+            ),
+            variant == true
+                ? Text(
+                    "  " + text2,
+                    maxLines: 12,
+                    style: TextStyle(color: Colors.black, fontSize: size.width >= 800 ? size.width * 0.025 : size.width * 0.045, fontFamily: normsProMedium),
+                  )
+                : const SizedBox.shrink()
+          ],
+        ),
+        variant == true
+            ? const SizedBox(
+                height: 35,
+              )
+            : Padding(
+                padding: const EdgeInsets.only(left: 15, right: 12, top: 15, bottom: 30),
+                child: Text(
+                  "  " + text2,
+                  maxLines: 12,
+                  style: TextStyle(color: Colors.black, fontSize: size.width >= 800 ? size.width * 0.025 : size.width * 0.045, fontFamily: normsProMedium),
+                ),
+              ),
+      ],
+    );
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "183837123477",
+    "firebase_url": "https://akar-fafb7-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "akar-fafb7",
+    "storage_bucket": "akar-fafb7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:183837123477:android:4586c43fd4c9a715e68c9c",
+        "android_client_info": {
+          "package_name": "com.bilermennesil.akar_suw"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "183837123477-mgevst2r973ufv2uoe46aousmod414l6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bilermennesil.akar_suw",
+            "certificate_hash": "bdc54734cb2d09e3faf4c8a7cf4ff56deefcb3ab"
+          }
+        },
+        {
+          "client_id": "183837123477-ej0aj36fuo640suk251rc9t6fr3dqv0t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIzSsjZ6WcCvyRSdQNdYIhe_X0F4KIhJM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "183837123477-ej0aj36fuo640suk251rc9t6fr3dqv0t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

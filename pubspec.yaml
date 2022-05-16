@@ -1,0 +1,48 @@
+name: akar_suw_2
+description: A new Flutter project.
+publish_to: 'none' 
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependencies:
+  firebase_core: null
+  firebase_messaging: ^11.2.6
+  flutter:
+    sdk: flutter
+  flutter_iconly: ^1.0.2
+  flutter_local_notifications: null
+  get: null
+  get_storage: ^2.0.3
+  http: null
+  lottie: ^1.2.1
+  url_launcher: ^6.1.2
+  # pull_to_refresh: ^2.0.0
+  vibration: ^1.7.4-nullsafety.0
+  # device_preview:
+dev_dependencies:
+  flutter_lints: ^1.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  generate: true
+  assets:
+    - assets/fonts/
+    - assets/lang/
+    - assets/lottie/
+  fonts:
+    - family: NormsProBold
+      fonts:
+        - asset: assets/fonts/NormsProBold.otf
+    - family: NormsProMedium
+      fonts:
+        - asset: assets/fonts/NormsProMedium.otf
+    - family: NormsProRegular
+      fonts:
+        - asset: assets/fonts/NormsProRegular.otf
+    - family: NormsProLight
+      fonts:
+        - asset: assets/fonts/NormsProLight.otf
