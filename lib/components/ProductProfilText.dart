@@ -20,45 +20,51 @@ class TextPart extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Icon(
-                icon,
-                color: kPrimaryColor,
-              ),
-            ),
-            Text(
-              text.tr,
-              maxLines: 3,
-              style: TextStyle(color: kPrimaryColor, fontSize: size.width >= 800 ? size.width * 0.025 : size.width * 0.05, fontFamily: normsProSemiBold),
-            ),
-            variant == true
-                ? Text(
-                    "  " + text2,
-                    maxLines: 12,
-                    style: TextStyle(color: Colors.black, fontSize: size.width >= 800 ? size.width * 0.025 : size.width * 0.045, fontFamily: normsProMedium),
-                  )
-                : const SizedBox.shrink()
-          ],
-        ),
-        variant == true
-            ? const SizedBox(
-                height: 35,
-              )
-            : Padding(
-                padding: const EdgeInsets.only(left: 15, right: 12, top: 15, bottom: 30),
-                child: Text(
-                  "  " + text2,
-                  maxLines: 12,
-                  style: TextStyle(color: Colors.black, fontSize: size.width >= 800 ? size.width * 0.025 : size.width * 0.045, fontFamily: normsProMedium),
+    Size size = MediaQuery.of(context).size;
+
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: size.width >= 800 ? size.width * 0.02 : 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: Icon(
+                  icon,
+                  color: kPrimaryColor,
+                  size: size.width >= 800 ? size.width * 0.03 : size.width * 0.05,
                 ),
               ),
-      ],
+              Text(
+                text.tr,
+                maxLines: 3,
+                style: TextStyle(color: kPrimaryColor, fontSize: size.width >= 800 ? size.width * 0.04 : size.width * 0.05, fontFamily: normsProSemiBold),
+              ),
+              variant == true
+                  ? Text(
+                      "  " + text2,
+                      maxLines: 12,
+                      style: TextStyle(color: Colors.black, fontSize: size.width >= 800 ? size.width * 0.035 : size.width * 0.045, fontFamily: normsProMedium),
+                    )
+                  : const SizedBox.shrink()
+            ],
+          ),
+          variant == true
+              ? const SizedBox(
+                  height: 35,
+                )
+              : Padding(
+                  padding: const EdgeInsets.only(left: 15, right: 12, top: 15, bottom: 30),
+                  child: Text(
+                    "  " + text2,
+                    maxLines: 12,
+                    style: TextStyle(color: Colors.black, fontSize: size.width >= 800 ? size.width * 0.035 : size.width * 0.045, fontFamily: normsProMedium),
+                  ),
+                ),
+        ],
+      ),
     );
   }
 }

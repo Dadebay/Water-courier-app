@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-const String serverURL = "http://192.168.31.30:5000";
-const String authServerUrl = "http://192.168.31.30:5000";
-// const String serverURL = "http://141.136.44.10:5000";
-// const String authServerUrl = "http://141.136.44.10:5000";
+// const String serverURL = "http://192.168.31.30:5000";
+// const String authServerUrl = "http://192.168.31.30:5000";
+const String serverURL = "http://141.136.44.10:7001";
+const String authServerUrl = "http://141.136.44.10:7001";
 
 const Color backgroundColor = Color(0xfff2f2f2);
 const Color kPrimaryColor = Color(0xff144DDE);

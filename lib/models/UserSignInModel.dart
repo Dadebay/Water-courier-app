@@ -117,6 +117,8 @@ class OrderModel {
         body: jsonEncode(body));
     print(response.body);
     if (response.statusCode == 200) {
+      OrderModel().get();
+
       return true;
     } else {
       return false;
@@ -134,7 +136,6 @@ class OrderModel {
         HttpHeaders.authorizationHeader: 'Bearer $token',
       },
     );
-    print(response.body);
     if (response.statusCode == 200) {
       final responseJson = jsonDecode(response.body)["rows"];
       int a = int.parse(responseJson["delivered"]);

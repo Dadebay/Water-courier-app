@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, unrelated_type_equality_checks
 
 import 'package:akar_suw_2/components/PopUpMenuButton.dart';
 import 'package:akar_suw_2/components/bottomSheet.dart';
@@ -25,77 +25,109 @@ class _HomePageState extends State<HomePage> {
     OrderModel().get();
   }
 
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
+  Future<void> _refreshPhotos() async {
+    Get.find<HomePageController>().loading.value = 0;
+    Get.find<HomePageController>().list.clear();
+
+    await Future.delayed(const Duration(seconds: 1));
+
+    Get.find<HomePageController>().fetchRealEstates();
+  }
+
   final HomePageController homePageController = Get.put(HomePageController());
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return SafeArea(
-        child: Scaffold(
-            backgroundColor: Colors.white,
-            bottomSheet: const BottomSheetMine(),
-            appBar: AppBar(
-              backgroundColor: Colors.white,
-              elevation: 1,
-              title: Text(
-                "Akar Suw",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: size.width >= 800 ? size.width * 0.035 : size.width * 0.05,
-                  fontFamily: normsProBold,
-                ),
-              ),
-              centerTitle: true,
-              actions: [
-                PopUpMenu(),
-              ],
+    return Scaffold(
+        backgroundColor: Colors.white,
+        bottomSheet: const BottomSheetMine(),
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 1,
+          title: Text(
+            "Akar Suw",
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: size.width >= 800 ? size.width * 0.035 : size.width * 0.05,
+              fontFamily: normsProBold,
             ),
-            body: Obx(() {
-              if (homePageController.loading.value == 2) {
-                return Center(
-                  child: SizedBox(
-                    width: 140,
-                    height: 140,
-                    child: Lottie.asset(
-                      loading2,
-                    ),
+          ),
+          centerTitle: true,
+          actions: [
+            PopUpMenu(),
+          ],
+        ),
+        body: RefreshIndicator(
+          onRefresh: _refreshPhotos,
+          key: _refreshIndicatorKey,
+          child: Obx(() {
+            if (homePageController.loading.value == 2 || homePageController.loading.value == 0) {
+              return Center(
+                child: SizedBox(
+                  width: 140,
+                  height: 140,
+                  child: Lottie.asset(
+                    loading2,
                   ),
-                );
-              } else if (homePageController.loading.value == 3) {
-                return Center(
-                    child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("noConnection1".tr, textAlign: TextAlign.center, style: const TextStyle(fontSize: 20, fontFamily: normsProSemiBold)),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Text("noConnection2".tr, textAlign: TextAlign.center, style: const TextStyle(fontSize: 20, fontFamily: normsProMedium)),
-                  ],
-                ));
-              }
-
-              return ListView.separated(
-                itemBuilder: (BuildContext context, int index) {
-                  return ExpansionCard(
-                    index: index,
-                    location: homePageController.list[index]["location"],
-                    commit: homePageController.list[index]["comment"],
-                    acceptedTime: homePageController.list[index]["accepted_time"],
-                    quantity: "${homePageController.list[index]["quantity"]}",
-                    orderID: homePageController.list[index]["id"],
-                    statusID: homePageController.list[index]["status_id"],
-                    phone: homePageController.list[index]["phone"],
-                  );
-                },
-                itemCount: homePageController.list.length,
-                separatorBuilder: (BuildContext context, int index) {
-                  return const Divider(
-                    color: backgroundColor,
-                    thickness: 1,
-                  );
-                },
+                ),
               );
-            })));
+            } else if (homePageController.loading.value == 3) {
+              return Center(
+                  child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("noConnection1".tr, textAlign: TextAlign.center, style: TextStyle(fontSize: size.width >= 800 ? size.width * 0.035 : size.width * 0.05, fontFamily: normsProSemiBold)),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Text("noConnection2".tr, textAlign: TextAlign.center, style: TextStyle(fontSize: size.width >= 800 ? size.width * 0.035 : size.width * 0.05, fontFamily: normsProMedium)),
+                ],
+              ));
+            }
+
+            return homePageController.list.toString() == "[]"
+                ? Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          "assets/lottie/emptyProducts.png",
+                          color: Colors.grey,
+                          width: size.width >= 800 ? size.width * 0.4 : size.width * 0.5,
+                          height: size.width >= 800 ? size.width * 0.4 : size.width * 0.5,
+                        ),
+                        Text(
+                          "NoOrder".tr,
+                          style: TextStyle(color: Colors.black, fontSize: size.width >= 800 ? size.width * 0.04 : size.width * 0.05, fontFamily: normsProMedium),
+                        )
+                      ],
+                    ),
+                  )
+                : ListView.separated(
+                    itemBuilder: (BuildContext context, int index) {
+                      return ExpansionCard(
+                        index: homePageController.list[index]["id"],
+                        location: homePageController.list[index]["location"],
+                        commit: homePageController.list[index]["comment"],
+                        acceptedTime: homePageController.list[index]["accepted_time"],
+                        quantity: "${homePageController.list[index]["quantity"]}",
+                        orderID: homePageController.list[index]["id"],
+                        statusID: homePageController.list[index]["status_id"],
+                        phone: homePageController.list[index]["phone"],
+                      );
+                    },
+                    itemCount: homePageController.list.length,
+                    separatorBuilder: (BuildContext context, int index) {
+                      return const Divider(
+                        color: backgroundColor,
+                        thickness: 1,
+                      );
+                    },
+                  );
+          }),
+        ));
   }
 }

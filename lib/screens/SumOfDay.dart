@@ -12,6 +12,8 @@ class SumOfDay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -28,7 +30,7 @@ class SumOfDay extends StatelessWidget {
             )),
         title: Text(
           "summaryOfDay".tr,
-          style: const TextStyle(fontFamily: normsProSemiBold, color: Colors.black),
+          style: TextStyle(fontFamily: normsProSemiBold, fontSize: size.width >= 800 ? size.width * 0.035 : size.width * 0.05, color: Colors.black),
         ),
       ),
       body: FutureBuilder<List<OrderModel>>(
@@ -50,11 +52,11 @@ class SumOfDay extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("noConnection1".tr, textAlign: TextAlign.center, style: const TextStyle(fontSize: 20, fontFamily: normsProSemiBold)),
+                  Text("noConnection1".tr, textAlign: TextAlign.center, style: TextStyle(fontSize: size.width >= 800 ? size.width * 0.025 : size.width * 0.04, fontFamily: normsProSemiBold)),
                   const SizedBox(
                     height: 15,
                   ),
-                  Text("noConnection2".tr, textAlign: TextAlign.center, style: const TextStyle(fontSize: 20, fontFamily: normsProMedium)),
+                  Text("noConnection2".tr, textAlign: TextAlign.center, style: TextStyle(fontSize: size.width >= 800 ? size.width * 0.025 : size.width * 0.04, fontFamily: normsProMedium)),
                 ],
               ));
             }

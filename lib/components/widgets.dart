@@ -20,11 +20,12 @@ SnackbarController showSnackBar(String title, String subtitle, Color color) {
           ),
     messageText: Text(
       subtitle.tr,
-      style: const TextStyle(fontFamily: normsProRegular, fontSize: 14, color: Colors.white),
+      style: const TextStyle(fontFamily: normsProMedium, fontSize: 14, color: Colors.white),
     ),
     snackPosition: SnackPosition.BOTTOM,
     backgroundColor: color,
     borderRadius: 20.0,
+    duration: const Duration(milliseconds: 800),
     margin: const EdgeInsets.all(8),
   );
 }

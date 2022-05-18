@@ -33,31 +33,51 @@ FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNo
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
 
-  final responseJson = jsonDecode(message.data["order"]);
-  Get.find<HomePageController>().list.add({
-    "id": responseJson["id"],
-    "location": responseJson["location"],
-    "phone": responseJson["phone"],
-    "quantity": responseJson["quantity"],
-    "status_id": responseJson["status_id"],
-    "accepted_time": responseJson["accepted_time"],
-    "comment": responseJson["comment"],
-  });
-  flutterLocalNotificationsPlugin.show(
-    message.data.hashCode,
-    responseJson["location"],
-    responseJson["comment"],
-    NotificationDetails(
-      android: AndroidNotificationDetails(
-        channel.id,
-        channel.name,
-        channelDescription: channel.description,
-        color: Colors.white,
-        styleInformation: const BigTextStyleInformation(''),
-        icon: '@mipmap/ic_launcher',
+  print(message.data);
+  if (message.data["order"] == null || message.data["order"].isEmpty || message.data["order"] == "") {
+    flutterLocalNotificationsPlugin.show(
+      message.data.hashCode,
+      message.data["message"],
+      "",
+      NotificationDetails(
+        android: AndroidNotificationDetails(
+          channel.id,
+          channel.name,
+          channelDescription: channel.description,
+          styleInformation: const BigTextStyleInformation(''),
+          color: Colors.white,
+          icon: '@mipmap/ic_launcher',
+        ),
       ),
-    ),
-  );
+    );
+  } else {
+    final responseJson = jsonDecode(message.data["order"]);
+
+    Get.find<HomePageController>().list.add({
+      "id": responseJson["id"],
+      "location": responseJson["location"],
+      "phone": responseJson["phone"],
+      "quantity": responseJson["quantity"],
+      "status_id": responseJson["status_id"],
+      "accepted_time": responseJson["accepted_time"],
+      "comment": responseJson["comment"],
+    });
+    flutterLocalNotificationsPlugin.show(
+      message.data.hashCode,
+      responseJson["location"],
+      responseJson["comment"],
+      NotificationDetails(
+        android: AndroidNotificationDetails(
+          channel.id,
+          channel.name,
+          channelDescription: channel.description,
+          styleInformation: const BigTextStyleInformation(''),
+          color: Colors.white,
+          icon: '@mipmap/ic_launcher',
+        ),
+      ),
+    );
+  }
 }
 
 Future<void> main() async {
@@ -124,31 +144,51 @@ class _MyAppRunState extends State<MyAppRun> {
       Get.find<HomePageController>().writeFirebaseToken(token: value!);
     });
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      final responseJson = jsonDecode(message.data["order"]);
-      Get.find<HomePageController>().list.add({
-        "id": responseJson["id"],
-        "location": responseJson["location"],
-        "phone": responseJson["phone"],
-        "quantity": responseJson["quantity"],
-        "status_id": responseJson["status_id"],
-        "accepted_time": responseJson["accepted_time"],
-        "comment": responseJson["comment"],
-      });
-      flutterLocalNotificationsPlugin.show(
-        message.data.hashCode,
-        responseJson["location"],
-        responseJson["comment"],
-        NotificationDetails(
-          android: AndroidNotificationDetails(
-            channel.id,
-            channel.name,
-            channelDescription: channel.description,
-            styleInformation: const BigTextStyleInformation(''),
-            color: Colors.white,
-            icon: '@mipmap/ic_launcher',
+      print(message.data);
+      if (message.data["order"] == null || message.data["order"].isEmpty || message.data["order"] == "") {
+        flutterLocalNotificationsPlugin.show(
+          message.data.hashCode,
+          message.data["message"],
+          "",
+          NotificationDetails(
+            android: AndroidNotificationDetails(
+              channel.id,
+              channel.name,
+              channelDescription: channel.description,
+              styleInformation: const BigTextStyleInformation(''),
+              color: Colors.white,
+              icon: '@mipmap/ic_launcher',
+            ),
           ),
-        ),
-      );
+        );
+      } else {
+        final responseJson = jsonDecode(message.data["order"]);
+
+        Get.find<HomePageController>().list.add({
+          "id": responseJson["id"],
+          "location": responseJson["location"],
+          "phone": responseJson["phone"],
+          "quantity": responseJson["quantity"],
+          "status_id": responseJson["status_id"],
+          "accepted_time": responseJson["accepted_time"],
+          "comment": responseJson["comment"],
+        });
+        flutterLocalNotificationsPlugin.show(
+          message.data.hashCode,
+          responseJson["location"],
+          responseJson["comment"],
+          NotificationDetails(
+            android: AndroidNotificationDetails(
+              channel.id,
+              channel.name,
+              channelDescription: channel.description,
+              styleInformation: const BigTextStyleInformation(''),
+              color: Colors.white,
+              icon: '@mipmap/ic_launcher',
+            ),
+          ),
+        );
+      }
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {

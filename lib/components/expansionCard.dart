@@ -32,6 +32,7 @@ class ExpansionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return ListTile(
+      tileColor: statusID == 2 ? Colors.red.withOpacity(0.4) : Colors.white,
       onTap: () {
         Get.to(() => ProductProfil(
               index: index + 1,
@@ -41,30 +42,41 @@ class ExpansionCard extends StatelessWidget {
               orderID: orderID,
               phone: phone,
               quantity: quantity,
+              removeButtons: false,
             ));
       },
       title: Text(location, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.black, fontSize: size.width >= 800 ? size.width * 0.031 : size.width * 0.035, fontFamily: normsProMedium)),
-      contentPadding: EdgeInsets.symmetric(vertical: size.width >= 800 ? 15 : 0),
+      contentPadding: EdgeInsets.symmetric(vertical: size.width >= 800 ? 8 : 0),
       subtitle: Text(
         commit,
         overflow: TextOverflow.ellipsis,
         maxLines: 1,
         style: TextStyle(color: Colors.grey, fontSize: size.width >= 800 ? size.width * 0.030 : size.width * 0.032, fontFamily: normsProRegular),
       ),
-      leading: Padding(
-        padding: EdgeInsets.only(
-          left: size.width >= 800 ? size.width * 0.015 : size.width * 0.02,
-          right: size.width >= 800 ? size.width * 0.015 : 0,
-        ),
-        child: CircleAvatar(
-          backgroundColor: backgroundColor,
-          radius: size.width >= 800 ? size.width * 0.03 : size.width * 0.045,
-          child: Text(
-            "${index + 1}",
-            style: TextStyle(color: Colors.black, fontSize: size.width >= 800 ? size.width * 0.035 : size.width * 0.04, fontFamily: normsProSemiBold),
-          ),
-        ),
-      ),
+      leading: size.width >= 800
+          ? Padding(
+              padding: EdgeInsets.only(
+                left: size.width * 0.015,
+                right: size.width * 0.015,
+              ),
+              child: Text(
+                "$index",
+                style: TextStyle(color: Colors.black, fontSize: size.width >= 800 ? size.width * 0.037 : size.width * 0.04, fontFamily: normsProSemiBold),
+              ),
+            )
+          : Padding(
+              padding: EdgeInsets.only(
+                left: size.width * 0.02,
+              ),
+              child: CircleAvatar(
+                backgroundColor: backgroundColor,
+                radius: size.width * 0.045,
+                child: Text(
+                  "$index",
+                  style: TextStyle(color: Colors.black, fontSize: size.width * 0.04, fontFamily: normsProSemiBold),
+                ),
+              ),
+            ),
       trailing: Padding(
         padding: EdgeInsets.only(
           right: size.width >= 800 ? size.width * 0.02 : size.width * 0.03,
