@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, deprecated_member_use
+// ignore_for_file: file_names, deprecated_member_use, must_be_immutable
 
 import 'package:akar_suw_2/components/ProductProfilText.dart';
 import 'package:akar_suw_2/components/button.dart';
@@ -48,7 +48,9 @@ class ProductProfil extends StatelessWidget {
           ],
         ),
         Padding(
-          padding: EdgeInsets.symmetric(vertical: size.width >= 800 ? 15 : 0),
+          padding: EdgeInsets.symmetric(
+            vertical: size.width >= 800 ? 20 : 0,
+          ),
           child: Row(
             children: [
               button(
@@ -76,7 +78,7 @@ class ProductProfil extends StatelessWidget {
           child: Row(
             children: [
               button(
-                  name: "Ýalňyş",
+                  name: "error",
                   color: Colors.red,
                   onTap: () {
                     onTapFunction(8, 1, Colors.red);

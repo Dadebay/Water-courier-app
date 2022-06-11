@@ -4,6 +4,7 @@ import 'package:akar_suw_2/controllers/HomePageController.dart';
 import 'package:akar_suw_2/models/AuthModel.dart';
 import 'package:akar_suw_2/screens/HomePage.dart';
 import 'package:akar_suw_2/utils/translations.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,8 @@ class MyHttpOverrides extends HttpOverrides {
   }
 }
 
+final HomePageController homePageController = Get.put(HomePageController());
+
 AndroidNotificationChannel channel = const AndroidNotificationChannel(
     'high_importance_channel', // id
     'High Importance Notifications', // title
@@ -32,8 +35,6 @@ AndroidNotificationChannel channel = const AndroidNotificationChannel(
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-
-  print(message.data);
   if (message.data["order"] == null || message.data["order"].isEmpty || message.data["order"] == "") {
     flutterLocalNotificationsPlugin.show(
       message.data.hashCode,
@@ -52,8 +53,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     );
   } else {
     final responseJson = jsonDecode(message.data["order"]);
-
-    Get.find<HomePageController>().list.add({
+    homePageController.list.add({
       "id": responseJson["id"],
       "location": responseJson["location"],
       "phone": responseJson["phone"],
@@ -84,18 +84,17 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
   await GetStorage.init();
-
   await Firebase.initializeApp();
   await FirebaseMessaging.instance.requestPermission();
-
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
   await flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.createNotificationChannel(channel);
+
   await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
     alert: true,
     badge: true,
     sound: true,
   );
+  const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
 
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarBrightness: Brightness.dark,
@@ -141,10 +140,10 @@ class _MyAppRunState extends State<MyAppRun> {
     getToken();
     FirebaseMessaging.instance.subscribeToTopic('Events');
     FirebaseMessaging.instance.getToken().then((value) {
-      Get.find<HomePageController>().writeFirebaseToken(token: value!);
+      homePageController.writeFirebaseToken(token: value!);
     });
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print(message.data);
+      // print(message.data);
       if (message.data["order"] == null || message.data["order"].isEmpty || message.data["order"] == "") {
         flutterLocalNotificationsPlugin.show(
           message.data.hashCode,
@@ -163,8 +162,7 @@ class _MyAppRunState extends State<MyAppRun> {
         );
       } else {
         final responseJson = jsonDecode(message.data["order"]);
-
-        Get.find<HomePageController>().list.add({
+        homePageController.list.add({
           "id": responseJson["id"],
           "location": responseJson["location"],
           "phone": responseJson["phone"],
@@ -198,21 +196,24 @@ class _MyAppRunState extends State<MyAppRun> {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      useInheritedMediaQuery: true,
-      // builder: DevicePreview.appBuilder,
-      initialBinding: AllControllerBindings(),
-      locale: storage.read('langCode') != null
-          ? Locale(storage.read('langCode'))
-          : const Locale(
-              'tr',
-            ),
-      fallbackLocale: const Locale("tr"),
-      translations: MyTranslations(),
-      defaultTransition: Transition.cupertinoDialog,
-      debugShowCheckedModeBanner: false,
-      // home: const HomePage(),
-      home: token != "" ? const HomePage() : LoginPage(),
+    return DevicePreview(
+      builder: (BuildContext context) {
+        return GetMaterialApp(
+          useInheritedMediaQuery: true,
+          initialBinding: AllControllerBindings(),
+          locale: storage.read('langCode') != null
+              ? Locale(storage.read('langCode'))
+              : const Locale(
+                  'tr',
+                ),
+          fallbackLocale: const Locale("tr"),
+          translations: MyTranslations(),
+          defaultTransition: Transition.cupertinoDialog,
+          debugShowCheckedModeBanner: false,
+          // home: const MyWidget(),
+          home: token != "" ? const HomePage() : LoginPage(),
+        );
+      },
     );
   }
 }

@@ -18,8 +18,8 @@ dependencies:
   http: null
   lottie: ^1.2.1
   url_launcher: ^6.1.2
+  device_preview:
   vibration: ^1.7.4-nullsafety.0
-  # device_preview:
 dev_dependencies:
   flutter_lints: ^1.0.0
   flutter_test:
@@ -32,6 +32,7 @@ flutter:
     - assets/fonts/
     - assets/lang/
     - assets/lottie/
+    - assets/
   fonts:
     - family: NormsProBold
       fonts:

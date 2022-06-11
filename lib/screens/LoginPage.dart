@@ -3,11 +3,12 @@ import 'package:akar_suw_2/components/constants.dart';
 import 'package:akar_suw_2/components/widgets.dart';
 import 'package:akar_suw_2/controllers/HomePageController.dart';
 import 'package:akar_suw_2/models/UserSignInModel.dart';
-import 'package:akar_suw_2/screens/HomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+
+import 'HomePage.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -22,16 +23,17 @@ class _LoginPageState extends State<LoginPage> {
   FocusNode focusNodeLogin2 = FocusNode();
 
   final _form1Key = GlobalKey<FormState>();
-  Widget agreeButton() {
+  Widget agreeButton(Size size) {
     return Obx(() {
       return GestureDetector(
         onTap: () async {
-          loginController.loginButton.value = !loginController.loginButton.value;
           final storage = GetStorage();
           String file = storage.read("firebase");
+          print(file);
           if (storage.read("firebase") == null) {
-            showSnackBar("Please try again", "Try again i said man!!!", Colors.red);
+            showSnackBar("Ýalňyş", "Maglumatlar ýalňyş täzeden snanşyň", Colors.red);
           } else {
+            loginController.loginButton.value = true;
             UserSignInModel()
                 .login(
               password: controllerLogin2.text,
@@ -39,7 +41,12 @@ class _LoginPageState extends State<LoginPage> {
               fireBaseCode: file,
             )
                 .then((value) {
-              Get.to(() => const HomePage());
+              if (value == true) {
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
+              } else {
+                showSnackBar("Ýalňyş", "Maglumatlar ýalňyş täzeden snanşyň", Colors.red);
+              }
+              loginController.loginButton.value = false;
             });
           }
         },
@@ -54,9 +61,19 @@ class _LoginPageState extends State<LoginPage> {
                 color: kPrimaryColor,
               ),
               curve: Curves.decelerate,
-              height: 50,
+              height: loginController.loginButton.value
+                  ? size.width >= 800
+                      ? 70
+                      : 50
+                  : size.width >= 800
+                      ? 70
+                      : 50,
               alignment: Alignment.center,
-              width: loginController.loginButton.value ? 70 : Get.size.width,
+              width: loginController.loginButton.value
+                  ? size.width >= 800
+                      ? 120
+                      : 70
+                  : size.width,
               duration: const Duration(milliseconds: 1000),
               child: loginController.loginButton.value
                   ? const Center(
@@ -69,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                         "agree".tr,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 22, fontFamily: normsProSemiBold, color: Colors.white),
+                        style: TextStyle(fontSize: size.width >= 800 ? 30 : 22, fontFamily: normsProSemiBold, color: Colors.white),
                       ),
                     ),
             ),
@@ -79,32 +96,31 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  Column namePart() {
+  Column namePart(Size size) {
     return Column(
       children: [
         Padding(
             padding: const EdgeInsets.only(top: 30),
             child: Text(
               "welcome".tr,
-              style: const TextStyle(color: Colors.black, fontFamily: normsProSemiBold, fontSize: 20),
+              style: TextStyle(color: Colors.black, fontFamily: normsProSemiBold, fontSize: size.width >= 800 ? 32 : 20),
             )),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 15),
           child: Text(
             "welcomeTitle".tr,
             textAlign: TextAlign.center,
-            style: const TextStyle(color: Colors.black87, fontFamily: normsProSemiBold, fontSize: 15),
+            style: TextStyle(color: Colors.black87, fontFamily: normsProSemiBold, fontSize: size.width >= 800 ? 28 : 15),
           ),
         ),
       ],
     );
   }
 
-  Widget phoneNumber() {
+  Widget phoneNumber(Size size) {
     return TextFormField(
-      style: const TextStyle(fontFamily: normsProSemiBold, fontSize: 18, color: Colors.black),
+      style: TextStyle(fontFamily: normsProSemiBold, fontSize: size.width >= 800 ? 28 : 18, color: Colors.black),
       textInputAction: TextInputAction.next,
-      keyboardType: TextInputType.number,
       focusNode: focusNodeLogin1,
       controller: controllerLogin1,
       validator: (value) {
@@ -120,23 +136,15 @@ class _LoginPageState extends State<LoginPage> {
         focusNodeLogin2.requestFocus();
       },
       inputFormatters: [
-        LengthLimitingTextInputFormatter(8),
+        LengthLimitingTextInputFormatter(12),
       ],
       decoration: InputDecoration(
         errorMaxLines: 3,
         errorStyle: const TextStyle(fontFamily: normsProMedium),
         contentPadding: const EdgeInsets.only(left: 30, top: 15, bottom: 15),
-        prefixIcon: const Padding(
-          padding: EdgeInsets.only(left: 16, bottom: 2),
-          child: Text(
-            '+ 993  ',
-            style: TextStyle(color: Colors.grey, fontSize: 18, fontFamily: normsProSemiBold),
-          ),
-        ),
-        prefixIconConstraints: const BoxConstraints(),
-        hintText: '__ ______',
+        hintText: '+993 62 626262',
         hintStyle: const TextStyle(color: Colors.grey),
-        labelStyle: const TextStyle(fontFamily: normsProSemiBold, fontSize: 16, color: Colors.grey),
+        labelStyle: TextStyle(fontFamily: normsProSemiBold, fontSize: size.width >= 800 ? 28 : 16, color: Colors.grey),
         fillColor: Colors.grey.withOpacity(0.1),
         filled: true,
         border: OutlineInputBorder(borderSide: BorderSide(color: Colors.red.shade200, width: 2), borderRadius: borderRadius10),
@@ -150,9 +158,9 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget textfieldPassword() {
+  Widget textfieldPassword(Size size) {
     return TextFormField(
-      style: const TextStyle(fontFamily: normsProSemiBold, fontSize: 18, color: Colors.black),
+      style: TextStyle(fontFamily: normsProSemiBold, fontSize: size.width >= 800 ? 28 : 18, color: Colors.black),
       textInputAction: TextInputAction.next,
       controller: controllerLogin2,
       validator: (value) {
@@ -166,7 +174,6 @@ class _LoginPageState extends State<LoginPage> {
       },
       obscuringCharacter: "*",
       focusNode: focusNodeLogin2,
-      keyboardType: TextInputType.number,
       inputFormatters: [
         LengthLimitingTextInputFormatter(50),
       ],
@@ -177,7 +184,7 @@ class _LoginPageState extends State<LoginPage> {
         fillColor: Colors.grey.withOpacity(0.1),
         filled: true,
         label: Text("password".tr),
-        labelStyle: TextStyle(color: Colors.grey[500], fontFamily: normsProSemiBold),
+        labelStyle: TextStyle(color: Colors.grey[500], fontSize: size.width >= 800 ? 28 : 18, fontFamily: normsProSemiBold),
         errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red.shade200, width: 2), borderRadius: borderRadius10),
         border: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey.shade100), borderRadius: borderRadius10),
         focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: kPrimaryColor, width: 2), borderRadius: borderRadius10),
@@ -193,41 +200,42 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
+    // print(size.height);
+    // print(size.width);
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Container(
-          height: size.height,
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+          height: size.height <= 740 ? size.height + 60 : size.height,
+          padding: size.width > 750 ? EdgeInsets.symmetric(horizontal: size.width / 5, vertical: 85) : EdgeInsets.symmetric(horizontal: 20, vertical: size.height <= 640 ? 0 : 25),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Padding(
-                padding: EdgeInsets.only(top: Get.size.width > 800 ? 50 : 80, bottom: 20, right: 40, left: 40),
-                child: const FlutterLogo(
-                  size: 220,
+                padding: EdgeInsets.only(top: size.width > 800 ? 50 : 00, bottom: 20, right: 40, left: 40),
+                child: FlutterLogo(
+                  size: size.width >= 800 ? 300 : 220,
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 25),
-                child: namePart(),
+                child: namePart(size),
               ),
               Form(
                 key: _form1Key,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    phoneNumber(),
+                    phoneNumber(size),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 40),
-                      child: textfieldPassword(),
+                      child: textfieldPassword(size),
                     ),
                   ],
                 ),
               ),
-              agreeButton(),
+              agreeButton(size),
               const SizedBox(
                 height: 20,
               )

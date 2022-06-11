@@ -21,11 +21,12 @@ class UserSignInModel {
           "password": password,
           "firebase_code": fireBaseCode,
         }));
-
+    print(response.body);
     if (response.statusCode == 200) {
       final responseJson = jsonDecode(response.body);
-      Auth().setToken(responseJson["access_token"]);
-      Auth().setRefreshToken(responseJson["refresh_token"]);
+      // print(responseJson);
+      await Auth().setToken(responseJson["access_token"]);
+      await Auth().setRefreshToken(responseJson["refresh_token"]);
       return true;
     } else {
       return response.statusCode;
@@ -59,6 +60,8 @@ class OrderModel {
   Future<List<OrderModel>> getOrders() async {
     final List<OrderModel> order = [];
     final token = await Auth().getToken();
+    // print("$serverURL/api/delivery/get-orders");
+    // print(token);
     final response = await http.get(
       Uri.parse(
         "$serverURL/api/delivery/get-orders",
@@ -68,7 +71,7 @@ class OrderModel {
         HttpHeaders.authorizationHeader: 'Bearer $token',
       },
     );
-    print(response.body);
+    // print(response.body);
     if (response.statusCode == 200) {
       final responseJson = jsonDecode(response.body)["rows"];
       for (final Map product in responseJson) {
@@ -92,7 +95,7 @@ class OrderModel {
         HttpHeaders.authorizationHeader: 'Bearer $token',
       },
     );
-    print(response.body);
+    // print(response.body);
     if (response.statusCode == 200) {
       final responseJson = jsonDecode(response.body)["rows"];
       for (final Map product in responseJson) {
@@ -115,7 +118,7 @@ class OrderModel {
           HttpHeaders.authorizationHeader: 'Bearer $token',
         },
         body: jsonEncode(body));
-    print(response.body);
+    // print(response.body);
     if (response.statusCode == 200) {
       OrderModel().get();
 

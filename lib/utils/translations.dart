@@ -38,8 +38,10 @@ class MyTranslations extends Translations {
           "sumofDay1": "Tizlendirmeli",
           "NoOrder": "Sargyt ýok.",
           "sumofDay2": "Garaşylýar",
+          "try": "Sahypany täzele"
         },
         'ru': {
+          "try": "Обновить страницу",
           "NoOrder": "Пустой заказ.",
           "sumofDay1": "Нужно ускорить",
           "sumofDay2": "Ожидал",

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bilermennesil.akar_suw">
    <application
-        android:label="akar_suw_2"
+        android:label="Akar Suw"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

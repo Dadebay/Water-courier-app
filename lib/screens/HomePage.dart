@@ -102,6 +102,22 @@ class _HomePageState extends State<HomePage> {
                         Text(
                           "NoOrder".tr,
                           style: TextStyle(color: Colors.black, fontSize: size.width >= 800 ? size.width * 0.04 : size.width * 0.05, fontFamily: normsProMedium),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: RaisedButton(
+                            onPressed: () {
+                              _refreshPhotos();
+                            },
+                            color: kPrimaryColor,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: borderRadius5,
+                            ),
+                            child: Text(
+                              "try".tr,
+                              style: const TextStyle(color: Colors.white, fontFamily: normsProBold, fontSize: 17),
+                            ),
+                          ),
                         )
                       ],
                     ),
