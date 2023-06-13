@@ -23,10 +23,11 @@ class TextPart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
+    print(variant);
     return Padding(
       padding: EdgeInsets.symmetric(vertical: size.width >= 800 ? size.width * 0.02 : 0),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
@@ -42,13 +43,15 @@ class TextPart extends StatelessWidget {
               Text(
                 text.tr,
                 maxLines: 3,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(color: kPrimaryColor, fontSize: size.width >= 800 ? size.width * 0.04 : size.width * 0.05, fontFamily: normsProSemiBold),
               ),
               variant == true
                   ? Text(
-                      "  " + text2,
+                      "  $text2",
+                      overflow: TextOverflow.ellipsis,
                       maxLines: 12,
-                      style: TextStyle(color: Colors.black, fontSize: size.width >= 800 ? size.width * 0.035 : size.width * 0.045, fontFamily: normsProMedium),
+                      style: TextStyle(color: Colors.white, fontSize: size.width >= 800 ? size.width * 0.035 : size.width * 0.045, fontFamily: normsProMedium),
                     )
                   : const SizedBox.shrink()
             ],
@@ -57,12 +60,14 @@ class TextPart extends StatelessWidget {
               ? const SizedBox(
                   height: 35,
                 )
-              : Padding(
+              : Container(
+                  width: Get.size.width,
                   padding: const EdgeInsets.only(left: 15, right: 12, top: 15, bottom: 30),
                   child: Text(
-                    "  " + text2,
+                    "  $text2",
+                    overflow: TextOverflow.ellipsis,
                     maxLines: 12,
-                    style: TextStyle(color: Colors.black, fontSize: size.width >= 800 ? size.width * 0.035 : size.width * 0.045, fontFamily: normsProMedium),
+                    style: TextStyle(color: Colors.white, fontSize: size.width >= 800 ? size.width * 0.035 : size.width * 0.045, fontFamily: normsProMedium),
                   ),
                 ),
         ],

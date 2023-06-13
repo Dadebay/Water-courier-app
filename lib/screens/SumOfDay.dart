@@ -15,9 +15,9 @@ class SumOfDay extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black,
         centerTitle: true,
         elevation: 1,
         leading: IconButton(
@@ -26,11 +26,11 @@ class SumOfDay extends StatelessWidget {
             },
             icon: const Icon(
               Icons.arrow_back,
-              color: Colors.black,
+              color: Colors.white,
             )),
         title: Text(
           "summaryOfDay".tr,
-          style: TextStyle(fontFamily: normsProSemiBold, fontSize: size.width >= 800 ? size.width * 0.035 : size.width * 0.05, color: Colors.black),
+          style: TextStyle(fontFamily: normsProSemiBold, fontSize: size.width >= 800 ? size.width * 0.035 : size.width * 0.05, color: Colors.white),
         ),
       ),
       body: FutureBuilder<List<OrderModel>>(

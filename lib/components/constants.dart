@@ -11,7 +11,12 @@ const Color kPrimaryColor = Color(0xff144DDE);
 ///BorderRadius
 const BorderRadius borderRadius5 = BorderRadius.all(Radius.circular(5));
 const BorderRadius borderRadius10 = BorderRadius.all(Radius.circular(10));
+const BorderRadius borderRadius15 = BorderRadius.all(Radius.circular(15));
+const BorderRadius borderRadius20 = BorderRadius.all(Radius.circular(20));
+const BorderRadius borderRadius25 = BorderRadius.all(Radius.circular(25));
 const BorderRadius borderRadius30 = BorderRadius.all(Radius.circular(30));
+const BorderRadius borderRadius40 = BorderRadius.all(Radius.circular(40));
+const BorderRadius borderRadius50 = BorderRadius.all(Radius.circular(50));
 
 const String normsProRegular = "NormsProLight";
 const String normsProMedium = "NormsProRegular";
@@ -28,3 +33,4 @@ const String loremImpsum =
 //App Name
 //Gelen sany doly nasos
 //Yukleme dusurme
+///BorderRadius

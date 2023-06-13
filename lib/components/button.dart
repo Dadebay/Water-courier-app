@@ -17,11 +17,13 @@ class button extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Expanded(
-      child: RaisedButton(
+      child: ElevatedButton(
           onPressed: onTap,
-          color: color,
-          shape: const RoundedRectangleBorder(borderRadius: borderRadius5),
-          padding: EdgeInsets.symmetric(vertical: size.width >= 800 ? 15 : 8),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: color,
+            shape: const RoundedRectangleBorder(borderRadius: borderRadius5),
+            padding: EdgeInsets.symmetric(vertical: size.width >= 800 ? 15 : 8),
+          ),
           child: Text(
             name.tr,
             style: TextStyle(

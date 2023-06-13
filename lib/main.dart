@@ -4,7 +4,6 @@ import 'package:akar_suw_2/controllers/HomePageController.dart';
 import 'package:akar_suw_2/models/AuthModel.dart';
 import 'package:akar_suw_2/screens/HomePage.dart';
 import 'package:akar_suw_2/utils/translations.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +13,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import 'controllers/AllContollerBindings.dart';
-import 'screens/LoginPage.dart';
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -97,10 +95,10 @@ Future<void> main() async {
   const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
 
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarBrightness: Brightness.dark,
-    statusBarIconBrightness: Brightness.dark,
+    statusBarBrightness: Brightness.light,
+    statusBarIconBrightness: Brightness.light,
     systemNavigationBarColor: Colors.black,
-    statusBarColor: Colors.white,
+    statusBarColor: Colors.black,
   ));
 
   SystemChrome.setPreferredOrientations([
@@ -196,24 +194,20 @@ class _MyAppRunState extends State<MyAppRun> {
 
   @override
   Widget build(BuildContext context) {
-    return DevicePreview(
-      builder: (BuildContext context) {
-        return GetMaterialApp(
-          useInheritedMediaQuery: true,
-          initialBinding: AllControllerBindings(),
-          locale: storage.read('langCode') != null
-              ? Locale(storage.read('langCode'))
-              : const Locale(
-                  'tr',
-                ),
-          fallbackLocale: const Locale("tr"),
-          translations: MyTranslations(),
-          defaultTransition: Transition.cupertinoDialog,
-          debugShowCheckedModeBanner: false,
-          // home: const MyWidget(),
-          home: token != "" ? const HomePage() : LoginPage(),
-        );
-      },
+    return GetMaterialApp(
+      useInheritedMediaQuery: true,
+      initialBinding: AllControllerBindings(),
+      locale: storage.read('langCode') != null
+          ? Locale(storage.read('langCode'))
+          : const Locale(
+              'tr',
+            ),
+      fallbackLocale: const Locale("tr"),
+      translations: MyTranslations(),
+      defaultTransition: Transition.cupertinoDialog,
+      debugShowCheckedModeBanner: false,
+      // home: const MyWidget(),
+      home: const HomePage(),
     );
   }
 }

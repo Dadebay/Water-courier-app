@@ -1,27 +1,25 @@
 name: akar_suw_2
 description: A new Flutter project.
-publish_to: 'none' 
+publish_to: "none"
 version: 1.0.0+1
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
-  firebase_core: null
-  firebase_messaging: ^11.2.6
+  firebase_messaging:
   flutter:
     sdk: flutter
-  flutter_iconly: ^1.0.2
-  flutter_local_notifications: null
-  get: null
-  get_storage: ^2.0.3
-  http: null
-  lottie: ^1.2.1
-  url_launcher: ^6.1.2
-  device_preview:
-  vibration: ^1.7.4-nullsafety.0
+  flutter_iconly:
+  flutter_local_notifications:
+  get:
+  get_storage:
+  http:
+  lottie:
+  url_launcher:
+
 dev_dependencies:
-  flutter_lints: ^1.0.0
+  flutter_lints:
   flutter_test:
     sdk: flutter
 

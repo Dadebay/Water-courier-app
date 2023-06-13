@@ -4,7 +4,7 @@ import 'package:akar_suw_2/components/ProductProfilText.dart';
 import 'package:akar_suw_2/components/button.dart';
 import 'package:akar_suw_2/components/widgets.dart';
 import 'package:akar_suw_2/controllers/HomePageController.dart';
-import 'package:akar_suw_2/models/UserSignInModel.dart';
+import 'package:akar_suw_2/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:get/get.dart';
@@ -117,8 +117,11 @@ class ProductProfil extends StatelessWidget {
   ];
   onTapFunction(int index, int title, Color color) {
     Get.find<HomePageController>().list.removeWhere((element) => element["id"] == orderID);
-    OrderModel().accepted(body: {"status_id": index}, id: orderID);
-
+    if (index == 3) {
+      homePageController.acceptedNumber.value += 1;
+    } else {
+      homePageController.leftNumber.value += 1;
+    }
     Get.back();
     showSnackBar(titles[title], subTitles[title], color);
   }
@@ -128,9 +131,9 @@ class ProductProfil extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black,
         centerTitle: true,
         elevation: 1,
         leading: IconButton(
@@ -140,11 +143,11 @@ class ProductProfil extends StatelessWidget {
             icon: Icon(
               Icons.arrow_back,
               size: size.width >= 800 ? size.width * 0.035 : size.width * 0.05,
-              color: Colors.black,
+              color: Colors.white,
             )),
         title: Text(
-          "order".tr + " $index",
-          style: TextStyle(fontFamily: normsProSemiBold, fontSize: size.width >= 800 ? size.width * 0.03 : size.width * 0.045, color: Colors.black),
+          "${"order".tr} $index",
+          style: TextStyle(fontFamily: normsProSemiBold, fontSize: size.width >= 800 ? size.width * 0.03 : size.width * 0.045, color: Colors.white),
         ),
       ),
       body: SingleChildScrollView(
@@ -156,14 +159,14 @@ class ProductProfil extends StatelessWidget {
             TextPart(size: size, icon: IconlyBold.location, text: "address", text2: location, variant: false),
             comment != "" ? TextPart(size: size, icon: IconlyBold.chat, text: "comment", text2: comment, variant: false) : const SizedBox.shrink(),
             TextPart(size: size, icon: IconlyBold.call, text: "phoneNumber", text2: phone, variant: true),
-            TextPart(size: size, icon: IconlyBold.timeCircle, text: "arrivedTime", text2: acceptedTime, variant: true),
+            TextPart(size: size, icon: IconlyBold.timeCircle, text: "arrivedTime", text2: acceptedTime, variant: false),
             TextPart(size: size, icon: IconlyBold.edit, text: "count", text2: quantity, variant: true),
           ],
         ),
       ),
       bottomSheet: removeButtons == false
           ? Container(
-              color: Colors.white,
+              color: Colors.black,
               padding: EdgeInsets.only(
                 top: size.width * 0.01,
                 left: size.width * 0.02,

@@ -7,14 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class BottomSheetMine extends StatelessWidget {
-  const BottomSheetMine({Key? key}) : super(key: key);
+  BottomSheetMine({Key? key}) : super(key: key);
+  final HomePageController homePageController = Get.put(HomePageController());
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
     return Container(
-      color: Colors.white,
+      color: Colors.black,
       padding: EdgeInsets.all(
         size.width >= 800 ? size.width * 0.01 : size.width * 0.024,
       ),
@@ -22,14 +23,16 @@ class BottomSheetMine extends StatelessWidget {
         return Row(
           children: [
             Expanded(
-              child: RaisedButton(
+              child: ElevatedButton(
                   onPressed: () {
                     OrderModel().getOrders();
                   },
-                  color: Colors.green,
-                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                  ),
                   child: Text(
-                    'submitted'.tr + "  ${Get.find<HomePageController>().acceptedNumber}",
+                    "${'submitted'.tr}  ${Get.find<HomePageController>().acceptedNumber}",
                     style: TextStyle(
                       color: Colors.white,
                       fontFamily: normsProSemiBold,
@@ -41,12 +44,16 @@ class BottomSheetMine extends StatelessWidget {
               width: 10,
             ),
             Expanded(
-              child: RaisedButton(
-                  onPressed: () {},
-                  color: Colors.red,
-                  padding: const EdgeInsets.symmetric(vertical: 8),
+              child: ElevatedButton(
+                  onPressed: () {
+                    homePageController.list.clear();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                  ),
                   child: Text(
-                    'left'.tr + "  ${Get.find<HomePageController>().leftNumber}",
+                    "${'left'.tr}  ${Get.find<HomePageController>().leftNumber}",
                     style: TextStyle(
                       color: Colors.white,
                       fontFamily: normsProSemiBold,

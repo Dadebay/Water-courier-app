@@ -32,7 +32,7 @@ class ExpansionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return ListTile(
-      tileColor: statusID == 2 ? Colors.red.withOpacity(0.4) : Colors.white,
+      tileColor: Colors.black,
       onTap: () {
         Get.to(() => ProductProfil(
               index: index + 1,
@@ -45,7 +45,7 @@ class ExpansionCard extends StatelessWidget {
               removeButtons: false,
             ));
       },
-      title: Text(location, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.black, fontSize: size.width >= 800 ? size.width * 0.031 : size.width * 0.035, fontFamily: normsProMedium)),
+      title: Text(location, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white, fontSize: size.width >= 800 ? size.width * 0.031 : size.width * 0.035, fontFamily: normsProMedium)),
       contentPadding: EdgeInsets.symmetric(vertical: size.width >= 800 ? 8 : 0),
       subtitle: Text(
         commit,
@@ -61,7 +61,7 @@ class ExpansionCard extends StatelessWidget {
               ),
               child: Text(
                 "$index",
-                style: TextStyle(color: Colors.black, fontSize: size.width >= 800 ? size.width * 0.037 : size.width * 0.04, fontFamily: normsProSemiBold),
+                style: TextStyle(color: Colors.white, fontSize: size.width >= 800 ? size.width * 0.037 : size.width * 0.04, fontFamily: normsProSemiBold),
               ),
             )
           : Padding(
@@ -83,7 +83,7 @@ class ExpansionCard extends StatelessWidget {
         ),
         child: Icon(
           IconlyLight.arrowRightCircle,
-          color: Colors.black,
+          color: Colors.white,
           size: size.width >= 800 ? size.width * 0.04 : size.width * 0.055,
         ),
       ),
